@@ -17,7 +17,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 4
-        versionName = "1.2"
+        versionName = "1.3"
 
         // Only include arm64 native libs (99%+ of modern devices)
         ndk {

@@ -1,4 +1,4 @@
-// lionheart v1.2 — CLI client/server
+// lionheart v1.3 — CLI client/server
 // Imports shared logic from core/ package.
 package main
 

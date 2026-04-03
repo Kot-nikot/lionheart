@@ -31,7 +31,7 @@ portable_sed() {
 read_config() {
     python3 -c "import json; print(json.load(open('config/app.json'))$1)" 2>/dev/null || echo "$2"
 }
-VERSION=$(read_config "['version']" "1.2")
+VERSION=$(read_config "['version']" "1.3")
 ICON_BG=$(read_config "['icon']['background_color']" "#6E1319")
 ICON_FG=$(read_config "['icon']['foreground_color']" "#EDB953")
 
