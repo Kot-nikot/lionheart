@@ -9,6 +9,8 @@
 ![Android API](https://img.shields.io/badge/Android-API_21%2B-3DDC84?logo=android&style=flat-square)
 [![License](https://img.shields.io/github/license/jaykaiperson/lionheart?style=flat-square)](LICENSE)
 
+## Оригинальный репозиторий.
+
 [🇷🇺 Русский](#-русская-версия) · [🇬🇧 English](#-english-version)
 
 </div>
