@@ -41,7 +41,7 @@ printf "  ║  Lionheart v%-5s — сборка          ║\n" "$VERSION"
 printf "  ╚═════════════════════════════════════╝\n"
 printf "${NC}\n"
 
-MODE="${1:-all}"
+MODE="${1:-cli}"
 OUT="$ROOT/output"
 mkdir -p "$OUT"
 
@@ -385,9 +385,7 @@ build_cli() {
 
     local PLATFORMS=(
         "linux/amd64"   "linux/arm64"
-        "darwin/amd64"  "darwin/arm64"
-        "windows/amd64" "windows/arm64"
-        "freebsd/amd64"
+
     )
 
     for P in "${PLATFORMS[@]}"; do
