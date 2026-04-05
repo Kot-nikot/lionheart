@@ -399,7 +399,7 @@ func runServer(ctx context.Context, addr, pw string) {
         fmt.Println()
     }
 
-    srv, _ := socks5.New(&socks5.Config{})
+//    srv, _ := socks5.New(&socks5.Config{})
     go func() { <-ctx.Done(); l.Close() }()
 
     var wg sync.WaitGroup
@@ -434,7 +434,30 @@ func runServer(ctx context.Context, addr, pw string) {
                     inf("✕ \033[33m%s\033[0m", s.RemoteAddr())
                     return
                 }
-                go srv.ServeConn(st)
+                go func(st net.Conn) {
+                    defer st.Close()
+                    
+                    //exit socks
+                    xrayConn, err := net.Dial("tcp", "127.0.0.1:1081")
+                    if err != nil {
+                        inf("Xray connection failed: %v", err)
+                        return
+                    }
+                    defer xrayConn.Close()
+
+                    // proxy yamux -> socks
+                    var wg sync.WaitGroup
+                    wg.Add(2)
+                    go func() {
+                        defer wg.Done()
+                        io.Copy(xrayConn, st)
+                    }()
+                    go func() {
+                        defer wg.Done()
+                        io.Copy(st, xrayConn)
+                    }()
+                    wg.Wait()
+                }(st)        
             }
         }(s)
     }
