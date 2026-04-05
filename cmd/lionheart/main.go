@@ -24,7 +24,7 @@ import (
     "syscall"
     "time"
 
-    "github.com/armon/go-socks5"
+   // "github.com/armon/go-socks5"
     "github.com/hashicorp/yamux"
     "github.com/xtaci/kcp-go/v5"
 
