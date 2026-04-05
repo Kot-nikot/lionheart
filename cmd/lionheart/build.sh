@@ -11,12 +11,6 @@ go mod tidy
 PLATFORMS=(
     "linux/amd64"
     "linux/arm64"
-    "darwin/amd64"
-    "darwin/arm64"
-    "windows/amd64"
-    "windows/arm64"
-    "android/arm64"
-    "freebsd/amd64"
 )
 
 OUT="../../dist"
