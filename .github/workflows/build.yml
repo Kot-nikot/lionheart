@@ -1,0 +1,45 @@
+name: Build Lionheart linux
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build Linux x64 server binary (amd64)
+        run: |
+          cd cmd/lionheart
+          go mod tidy
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o /tmp/lionheart-linux-amd64 .
+          echo "Server binary (amd64): $(ls -lh /tmp/lionheart-linux-amd64)"
+
+      - name: Build Linux arm64 server binary
+        run: |
+          cd cmd/lionheart
+          CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o /tmp/lionheart-linux-arm64 .
+          echo "Server binary (arm64): $(ls -lh /tmp/lionheart-linux-arm64)"
+
+      - name: Upload amd64 server binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: lionheart-linux-amd64
+          path: /tmp/lionheart-linux-amd64
+          retention-days: 30
+
+      - name: Upload arm64 server binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: lionheart-linux-arm64
+          path: /tmp/lionheart-linux-arm64
+          retention-days: 30
